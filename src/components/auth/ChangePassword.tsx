@@ -1,10 +1,8 @@
 "use client"
 
-import type * as React from "react"
-
+import * as React from "react"
 import styled from "styled-components"
-import { useState } from "react"
-import { Mail, Phone, User, Lock } from "react-feather"
+import { Lock } from "react-feather"
 import { Button } from "../common/Button"
 
 const FormContainer = styled.div`
@@ -60,39 +58,39 @@ const ErrorMessage = styled.span`
   display: block;
 `
 
-export const RegisterForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
+const SuccessMessage = styled.div`
+  color: ${({ theme }) => theme.colors.status.success};
+  text-align: center;
+  margin-top: ${({ theme }) => theme.spacing.md};
+`
+
+export const ChangePassword = () => {
+  const [formData, setFormData] = React.useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   })
 
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [errors, setErrors] = React.useState<Record<string, string>>({})
+  const [success, setSuccess] = React.useState(false)
 
   const validate = () => {
     const newErrors: Record<string, string> = {}
 
-    if (!formData.name) {
-      newErrors.name = "Name is required"
+    if (!formData.currentPassword) {
+      newErrors.currentPassword = "Current password is required"
     }
 
-    if (!formData.email) {
-      newErrors.email = "Email is required"
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid"
+    if (!formData.newPassword) {
+      newErrors.newPassword = "New password is required"
+    } else if (formData.newPassword.length < 6) {
+      newErrors.newPassword = "Password must be at least 6 characters"
     }
 
-    if (!formData.phone) {
-      newErrors.phone = "Phone number is required"
-    } else if (!/^\d{10}$/.test(formData.phone)) {
-      newErrors.phone = "Phone number must be 10 digits"
-    }
-
-    if (!formData.password) {
-      newErrors.password = "Password is required"
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters"
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Please confirm your new password"
+    } else if (formData.newPassword !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match"
     }
 
     setErrors(newErrors)
@@ -102,8 +100,9 @@ export const RegisterForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (validate()) {
-      // Handle form submission
-      console.log("Form submitted:", formData)
+      // Handle password change
+      console.log("Changing password:", formData)
+      setSuccess(true)
     }
   }
 
@@ -117,42 +116,22 @@ export const RegisterForm = () => {
 
   return (
     <FormContainer>
-      <Title>Create Account</Title>
+      <Title>Change Password</Title>
       <form onSubmit={handleSubmit}>
         <FormGroup>
           <InputWrapper>
             <IconWrapper>
-              <User size={18} />
-            </IconWrapper>
-            <Input type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} />
-          </InputWrapper>
-          {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
-        </FormGroup>
-
-        <FormGroup>
-          <InputWrapper>
-            <IconWrapper>
-              <Mail size={18} />
+              <Lock size={18} />
             </IconWrapper>
             <Input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={formData.email}
+              type="password"
+              name="currentPassword"
+              placeholder="Current Password"
+              value={formData.currentPassword}
               onChange={handleChange}
             />
           </InputWrapper>
-          {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-        </FormGroup>
-
-        <FormGroup>
-          <InputWrapper>
-            <IconWrapper>
-              <Phone size={18} />
-            </IconWrapper>
-            <Input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} />
-          </InputWrapper>
-          {errors.phone && <ErrorMessage>{errors.phone}</ErrorMessage>}
+          {errors.currentPassword && <ErrorMessage>{errors.currentPassword}</ErrorMessage>}
         </FormGroup>
 
         <FormGroup>
@@ -162,18 +141,36 @@ export const RegisterForm = () => {
             </IconWrapper>
             <Input
               type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
+              name="newPassword"
+              placeholder="New Password"
+              value={formData.newPassword}
               onChange={handleChange}
             />
           </InputWrapper>
-          {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+          {errors.newPassword && <ErrorMessage>{errors.newPassword}</ErrorMessage>}
+        </FormGroup>
+
+        <FormGroup>
+          <InputWrapper>
+            <IconWrapper>
+              <Lock size={18} />
+            </IconWrapper>
+            <Input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm New Password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+          </InputWrapper>
+          {errors.confirmPassword && <ErrorMessage>{errors.confirmPassword}</ErrorMessage>}
         </FormGroup>
 
         <Button type="submit" fullWidth>
-          Register
+          Change Password
         </Button>
+
+        {success && <SuccessMessage>Password changed successfully!</SuccessMessage>}
       </form>
     </FormContainer>
   )

@@ -1,10 +1,8 @@
 "use client"
 
-import type * as React from "react"
-
+import * as React from "react"
 import styled from "styled-components"
-import { useState } from "react"
-import { Mail, Phone, User, Lock } from "react-feather"
+import { Mail, Lock } from "react-feather"
 import { Button } from "../common/Button"
 
 const FormContainer = styled.div`
@@ -53,6 +51,19 @@ const IconWrapper = styled.span`
   color: ${({ theme }) => theme.colors.text.secondary};
 `
 
+const ForgotPassword = styled.a`
+  color: ${({ theme }) => theme.colors.primary};
+  text-decoration: none;
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
+  display: block;
+  text-align: right;
+  margin-top: ${({ theme }) => theme.spacing.xs};
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
 const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.colors.status.error};
   font-size: ${({ theme }) => theme.typography.small.fontSize};
@@ -60,22 +71,16 @@ const ErrorMessage = styled.span`
   display: block;
 `
 
-export const RegisterForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
+export const LoginForm = () => {
+  const [formData, setFormData] = React.useState({
     email: "",
-    phone: "",
     password: "",
   })
 
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [errors, setErrors] = React.useState<Record<string, string>>({})
 
   const validate = () => {
     const newErrors: Record<string, string> = {}
-
-    if (!formData.name) {
-      newErrors.name = "Name is required"
-    }
 
     if (!formData.email) {
       newErrors.email = "Email is required"
@@ -83,16 +88,8 @@ export const RegisterForm = () => {
       newErrors.email = "Email is invalid"
     }
 
-    if (!formData.phone) {
-      newErrors.phone = "Phone number is required"
-    } else if (!/^\d{10}$/.test(formData.phone)) {
-      newErrors.phone = "Phone number must be 10 digits"
-    }
-
     if (!formData.password) {
       newErrors.password = "Password is required"
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters"
     }
 
     setErrors(newErrors)
@@ -117,18 +114,8 @@ export const RegisterForm = () => {
 
   return (
     <FormContainer>
-      <Title>Create Account</Title>
+      <Title>Login</Title>
       <form onSubmit={handleSubmit}>
-        <FormGroup>
-          <InputWrapper>
-            <IconWrapper>
-              <User size={18} />
-            </IconWrapper>
-            <Input type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} />
-          </InputWrapper>
-          {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
-        </FormGroup>
-
         <FormGroup>
           <InputWrapper>
             <IconWrapper>
@@ -148,16 +135,6 @@ export const RegisterForm = () => {
         <FormGroup>
           <InputWrapper>
             <IconWrapper>
-              <Phone size={18} />
-            </IconWrapper>
-            <Input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} />
-          </InputWrapper>
-          {errors.phone && <ErrorMessage>{errors.phone}</ErrorMessage>}
-        </FormGroup>
-
-        <FormGroup>
-          <InputWrapper>
-            <IconWrapper>
               <Lock size={18} />
             </IconWrapper>
             <Input
@@ -169,10 +146,11 @@ export const RegisterForm = () => {
             />
           </InputWrapper>
           {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+          <ForgotPassword href="/forgot-password">Forgot your password?</ForgotPassword>
         </FormGroup>
 
         <Button type="submit" fullWidth>
-          Register
+          Login
         </Button>
       </form>
     </FormContainer>
