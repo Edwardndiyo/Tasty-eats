@@ -1,34 +1,197 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
+// import { useState } from "react"
+// import styled, { ThemeProvider } from "styled-components"
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+// import Navbar from "./pages/client/components/Navbar"
+// import RestaurantShowcase from "./pages/client/components/RestaurantShowcase"
+// import MealGrid from "./pages/client/components/MealGrid"
+// import FiltersSection from "./pages/client/components/FiltersSection"
+// import CallToAction from "./pages/client/components/CallToAction"
+// import Footer from "./pages/client/components/Footer"
+// import CartPage from "./pages/client/components/CartPage"
+// import CheckoutPage from "./pages/client/components/CheckoutPage"
+// import OrderSuccessPage from "./pages/client/components/OrderSuccessPage"
+// import RestaurantPage from "./pages/client/components/RestaurantPage"
+// import LoginPage from "./pages/client/components/auth/LoginPage"
+// import SignupPage from "./pages/client/components/auth/SignupPage"
+// import ProfilePage from "./pages/client/components/profile/ProfilePage"
+// import { GlobalStyles, theme } from "./pages/client/styles/global-styles"
+// import DashboardLayout from "./pages/restaurant/components/layout/DashboardLayout"
+// import DishList from "./pages/restaurant/components/menu/DishList"
+// import MenuUpload from "./pages/restaurant/components/menu/MenuUpload"
+// import Dashboard from "./pages/restaurant/pages/Dashboard"
+
+// const PageContainer = styled.div`
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   background-color: ${(props) => props.theme.colors.background};
+//   width: 100%;
+//   overflow-x: hidden;
+// `
+
+// const MainContent = styled.main`
+//   flex: 1;
+//   width: 100%;
+// `
+
+// const Container = styled.div`
+//   width: 100%;
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 0 1rem;
+
+//   @media (min-width: 768px) {
+//     padding: 0 1.5rem;
+//   }
+// `
+
+// const GridLayout = styled.div`
+//   display: grid;
+//   gap: 1.5rem;
+//   margin-top: 2.5rem;
+
+//   @media (min-width: 768px) {
+//     grid-template-columns: 250px 1fr;
+//   }
+// `
 
 // function App() {
-//   const [count, setCount] = useState(0)
+//   const [cartItems, setCartItems] = useState([])
+//   const [activeFilters, setActiveFilters] = useState({
+//     mealType: [],
+//     cuisine: [],
+//     priceRange: [],
+//     location: [],
+//     restaurantCategory: [],
+//   })
+//   const [searchQuery, setSearchQuery] = useState("")
+
+//   const addToCart = (meal) => {
+//     setCartItems((prev) => {
+//       const existingItem = prev.find((item) => item.id === meal.id)
+//       if (existingItem) {
+//         return prev.map((item) => (item.id === meal.id ? { ...item, quantity: item.quantity + 1 } : item))
+//       }
+//       return [...prev, { ...meal, quantity: 1 }]
+//     })
+//   }
+
+//   const removeFromCart = (mealId) => {
+//     setCartItems((prev) => prev.filter((item) => item.id !== mealId))
+//   }
+
+//   const updateQuantity = (mealId, quantity) => {
+//     if (quantity < 1) {
+//       removeFromCart(mealId)
+//       return
+//     }
+
+//     setCartItems((prev) => prev.map((item) => (item.id === mealId ? { ...item, quantity } : item)))
+//   }
+
+//   const handleFilterChange = (filterType, value) => {
+//     setActiveFilters((prev) => ({
+//       ...prev,
+//       [filterType]: value,
+//     }))
+//   }
+
+//   const handleSearch = (query) => {
+//     setSearchQuery(query)
+//   }
+
+//   const clearCart = () => {
+//     setCartItems([])
+//   }
 
 //   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
+//     <Router>
+//       <ThemeProvider theme={theme}>
+//         <GlobalStyles />
+//         <PageContainer>
+//           <Navbar
+//             cartItems={cartItems}
+//             onSearch={handleSearch}
+//             onFilterChange={(value) => handleFilterChange("restaurantCategory", value)}
+//           />
+
+//           <MainContent>
+//             <Routes>
+//               <Route
+//                 path="/"
+//                 element={
+//                   <Container>
+//                     <RestaurantShowcase />
+//                     <GridLayout>
+//                       <FiltersSection activeFilters={activeFilters} onFilterChange={handleFilterChange} />
+//                       <MealGrid filters={activeFilters} searchQuery={searchQuery} onAddToCart={addToCart} />
+//                     </GridLayout>
+//                     <CallToAction />
+//                   </Container>
+//                 }
+//               />
+//               <Route path="/restaurant/:id" element={<RestaurantPage onAddToCart={addToCart} />} />
+//               <Route
+//                 path="/cart"
+//                 element={
+//                   <CartPage
+//                     cartItems={cartItems}
+//                     onUpdateQuantity={updateQuantity}
+//                     onRemoveItem={removeFromCart}
+//                     onAddToCart={addToCart}
+//                   />
+//                 }
+//               />
+//               <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} onOrderComplete={clearCart} />} />
+//               <Route path="/order-success" element={<OrderSuccessPage />} />
+//               <Route path="/login" element={<LoginPage />} />
+//               <Route path="/signup" element={<SignupPage />} />
+//               <Route path="/profile" element={<ProfilePage />} />
+
+
+//               {/* Restaurant Routes */}
+//               <Route
+//                 path="/restaurant"
+//                 element={
+//                   <DashboardLayout>
+//                     <Dashboard />
+//                   </DashboardLayout>
+//                 }
+//               />
+//               <Route
+//                 path="/restaurant/menu"
+//                 element={
+//                   <DashboardLayout>
+//                     <div style={{ display: "grid", gap: "2rem" }}>
+//                       <DishList />
+//                       <MenuUpload />
+//                     </div>
+//                   </DashboardLayout>
+//                 }
+//               />
+//               <Route
+//                 path="/restaurant/orders"
+//                 element={
+//                   <DashboardLayout>
+//                     <div>Orders Management</div>
+//                   </DashboardLayout>
+//                 }
+//               />
+//               <Route
+//                 path="/restaurant/settings"
+//                 element={
+//                   <DashboardLayout>
+//                     <div>Restaurant Settings</div>
+//                   </DashboardLayout>
+//                 }
+//               />
+//             </Routes>
+//           </MainContent>
+
+//           <Footer />
+//         </PageContainer>
+//       </ThemeProvider>
+//     </Router>
 //   )
 // }
 
@@ -40,25 +203,247 @@
 
 
 
+
+
+
+
+// import { useState } from "react"
+// import styled, { ThemeProvider } from "styled-components"
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+// import Navbar from "./pages/client/components/Navbar"
+// import RestaurantShowcase from "./pages/client/components/RestaurantShowcase"
+// import MealGrid from "./pages/client/components/MealGrid"
+// import FiltersSection from "./pages/client/components/FiltersSection"
+// import CallToAction from "./pages/client/components/CallToAction"
+// import Footer from "./pages/client/components/Footer"
+// import CartPage from "./pages/client/components/CartPage"
+// import CheckoutPage from "./pages/client/components/CheckoutPage"
+// import OrderSuccessPage from "./pages/client/components/OrderSuccessPage"
+// import RestaurantPage from "./pages/client/components/RestaurantPage"
+// import LoginPage from "./pages/client/components/auth/LoginPage"
+// import SignupPage from "./pages/client/components/auth/SignupPage"
+// import ProfilePage from "./pages/client/components/profile/ProfilePage"
+// import { GlobalStyles, theme } from "./pages/client/styles/global-styles"
+// import DashboardLayout from "./pages/restaurant/components/layout/DashboardLayout"
+// import DishList from "./pages/restaurant/components/menu/DishList"
+// import MenuUpload from "./pages/restaurant/components/menu/MenuUpload"
+// import Dashboard from "./pages/restaurant/pages/Dashboard"
+// import OrdersManagement from "./pages/restaurant/components/orders/OrdersManagement"
+
+// const PageContainer = styled.div`
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   background-color: ${(props) => props.theme.colors.background};
+//   width: 100%;
+//   overflow-x: hidden;
+// `
+
+// const MainContent = styled.main`
+//   flex: 1;
+//   width: 100%;
+// `
+
+// const Container = styled.div`
+//   width: 100%;
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 0 1rem;
+
+//   @media (min-width: 768px) {
+//     padding: 0 1.5rem;
+//   }
+// `
+
+// const GridLayout = styled.div`
+//   display: grid;
+//   gap: 1.5rem;
+//   margin-top: 2.5rem;
+
+//   @media (min-width: 768px) {
+//     grid-template-columns: 250px 1fr;
+//   }
+// `
+
+// function App() {
+  // const [cartItems, setCartItems] = useState([])
+  // const [activeFilters, setActiveFilters] = useState({
+  //   mealType: [],
+  //   cuisine: [],
+  //   priceRange: [],
+  //   location: [],
+  //   restaurantCategory: [],
+  // })
+  // const [searchQuery, setSearchQuery] = useState("")
+
+  // const addToCart = (meal) => {
+  //   setCartItems((prev) => {
+  //     const existingItem = prev.find((item) => item.id === meal.id)
+  //     if (existingItem) {
+  //       return prev.map((item) => (item.id === meal.id ? { ...item, quantity: item.quantity + 1 } : item))
+  //     }
+  //     return [...prev, { ...meal, quantity: 1 }]
+  //   })
+  // }
+
+  // const removeFromCart = (mealId) => {
+  //   setCartItems((prev) => prev.filter((item) => item.id !== mealId))
+  // }
+
+  // const updateQuantity = (mealId, quantity) => {
+  //   if (quantity < 1) {
+  //     removeFromCart(mealId)
+  //     return
+  //   }
+
+  //   setCartItems((prev) => prev.map((item) => (item.id === mealId ? { ...item, quantity } : item)))
+  // }
+
+  // const handleFilterChange = (filterType, value) => {
+  //   setActiveFilters((prev) => ({
+  //     ...prev,
+  //     [filterType]: value,
+  //   }))
+  // }
+
+  // const handleSearch = (query) => {
+  //   setSearchQuery(query)
+  // }
+
+  // const clearCart = () => {
+  //   setCartItems([])
+  // }
+
+//   return (
+//     <Router>
+//       <ThemeProvider theme={theme}>
+//         <GlobalStyles />
+//         <PageContainer>
+//           <Navbar
+//             cartItems={cartItems}
+//             onSearch={handleSearch}
+//             onFilterChange={(value) => handleFilterChange("restaurantCategory", value)}
+//           />
+
+          // <MainContent>
+          //   <Routes>
+          //     <Route
+          //       path="/"
+          //       element={
+          //         <Container>
+          //           <RestaurantShowcase />
+          //           <GridLayout>
+          //             <FiltersSection activeFilters={activeFilters} onFilterChange={handleFilterChange} />
+          //             <MealGrid filters={activeFilters} searchQuery={searchQuery} onAddToCart={addToCart} />
+          //           </GridLayout>
+          //           <CallToAction />
+          //         </Container>
+          //       }
+          //     />
+          //     <Route path="/restaurant/:id" element={<RestaurantPage onAddToCart={addToCart} />} />
+          //     <Route
+          //       path="/cart"
+          //       element={
+          //         <CartPage
+          //           cartItems={cartItems}
+          //           onUpdateQuantity={updateQuantity}
+          //           onRemoveItem={removeFromCart}
+          //           onAddToCart={addToCart}
+          //         />
+          //       }
+          //     />
+          //     <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} onOrderComplete={clearCart} />} />
+          //     <Route path="/order-success" element={<OrderSuccessPage />} />
+          //     <Route path="/login" element={<LoginPage />} />
+          //     <Route path="/signup" element={<SignupPage />} />
+          //     <Route path="/profile" element={<ProfilePage />} />
+//               {/* Restaurant Routes */}
+//               <Route
+//                 path="/restaurant"
+//                 element={
+//                   <DashboardLayout>
+//                     <Dashboard />
+//                   </DashboardLayout>
+//                 }
+//               />
+//               <Route
+//                 path="/restaurant/menu"
+//                 element={
+//                   <DashboardLayout>
+//                     <div style={{ display: "grid", gap: "2rem" }}>
+//                       <DishList />
+//                       <MenuUpload />
+//                     </div>
+//                   </DashboardLayout>
+//                 }
+//               />
+//               <Route
+//                 path="/restaurant/orders"
+//                 element={
+//                   <DashboardLayout>
+//                     <OrdersManagement />
+//                   </DashboardLayout>
+//                 }
+//               />
+//               <Route
+//                 path="/restaurant/settings"
+//                 element={
+//                   <DashboardLayout>
+//                     <div>Restaurant Settings</div>
+//                   </DashboardLayout>
+//                 }
+//               />
+//             </Routes>
+//           </MainContent>
+
+//           <Footer />
+//         </PageContainer>
+//       </ThemeProvider>
+//     </Router>
+//   )
+// }
+
+// export default App
+
+
+
+"use client"
+
 import { useState } from "react"
 import styled, { ThemeProvider } from "styled-components"
-import Navbar from "./components/navbar"
-import RestaurantShowcase from "./components/restaurant-showcase"
-import MealGrid from "./components/meal-grid"
-import FiltersSection from "./components/filters-section"
-import CallToAction from "./components/call-to-action"
-import Footer from "./components/footer"
-import { GlobalStyles, theme } from "./styles/global-styles"
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"
+import Navbar from "./pages/client/components/Navbar"
+import RestaurantShowcase from "./pages/client/components/RestaurantShowcase"
+import MealGrid from "./pages/client/components/MealGrid"
+import FiltersSection from "./pages/client/components/FiltersSection"
+import CallToAction from "./pages/client/components/CallToAction"
+import Footer from "./pages/client/components/Footer"
+import CartPage from "./pages/client/components/CartPage"
+import CheckoutPage from "./pages/client/components/CheckoutPage"
+import OrderSuccessPage from "./pages/client/components/OrderSuccessPage"
+import RestaurantPage from "./pages/client/components/RestaurantPage"
+import LoginPage from "./pages/client/components/auth/LoginPage"
+import SignupPage from "./pages/client/components/auth/SignupPage"
+import ProfilePage from "./pages/client/components/profile/ProfilePage"
+import { GlobalStyles, theme } from "./pages/client/styles/global-styles"
+import DashboardLayout from "./pages/restaurant/components/layout/DashboardLayout"
+import DishList from "./pages/restaurant/components/menu/DishList"
+import MenuUpload from "./pages/restaurant/components/menu/MenuUpload"
+import Dashboard from "./pages/restaurant/pages/Dashboard"
+import OrdersManagement from "./pages/restaurant/components/orders/OrdersManagement"
 
 const PageContainer = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.colors.background};
+  width: 100%;
+  overflow-x: hidden;
 `
 
 const MainContent = styled.main`
   flex: 1;
+  width: 100%;
 `
 
 const Container = styled.div`
@@ -66,7 +451,7 @@ const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
-  
+
   @media (min-width: 768px) {
     padding: 0 1.5rem;
   }
@@ -76,13 +461,15 @@ const GridLayout = styled.div`
   display: grid;
   gap: 1.5rem;
   margin-top: 2.5rem;
-  
+
   @media (min-width: 768px) {
     grid-template-columns: 250px 1fr;
   }
 `
 
-function App() {
+function AppContent() {
+  const location = useLocation()
+  const isRestaurantRoute = location.pathname.startsWith("/restaurant")
   const [cartItems, setCartItems] = useState([])
   const [activeFilters, setActiveFilters] = useState({
     mealType: [],
@@ -94,7 +481,26 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("")
 
   const addToCart = (meal) => {
-    setCartItems((prev) => [...prev, meal])
+    setCartItems((prev) => {
+      const existingItem = prev.find((item) => item.id === meal.id)
+      if (existingItem) {
+        return prev.map((item) => (item.id === meal.id ? { ...item, quantity: item.quantity + 1 } : item))
+      }
+      return [...prev, { ...meal, quantity: 1 }]
+    })
+  }
+
+  const removeFromCart = (mealId) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== mealId))
+  }
+
+  const updateQuantity = (mealId, quantity) => {
+    if (quantity < 1) {
+      removeFromCart(mealId)
+      return
+    }
+
+    setCartItems((prev) => prev.map((item) => (item.id === mealId ? { ...item, quantity } : item)))
   }
 
   const handleFilterChange = (filterType, value) => {
@@ -108,34 +514,105 @@ function App() {
     setSearchQuery(query)
   }
 
+  const clearCart = () => {
+    setCartItems([])
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <PageContainer>
-        <Navbar
-          cartItems={cartItems}
-          onSearch={handleSearch}
-          onFilterChange={(value) => handleFilterChange("restaurantCategory", value)}
-        />
+        {!isRestaurantRoute && <Navbar />}
+        {/* <MainContent>
+          <Routes>
+            
 
-        <MainContent>
-          <Container>
-            <RestaurantShowcase />
+            <Route
+              path="/"
+              element={
+                <Container>
+                  <RestaurantShowcase />
+                  <GridLayout>
+                    <FiltersSection />
+                    <MealGrid />
+                  </GridLayout>
+                  <CallToAction />
+                </Container>
+              }
+            />
+            <Route
+                 path="/"
+                 element={
+                   <Container>
+                     <RestaurantShowcase />
+                     <GridLayout>
+                       <FiltersSection activeFilters={activeFilters} onFilterChange={handleFilterChange} />
+                       <MealGrid filters={activeFilters} searchQuery={searchQuery} onAddToCart={addToCart} />
+                     </GridLayout>
+                     <CallToAction />
+                   </Container>
+                 }
+               />
+            <Route path="/restaurant/:id" element={<RestaurantPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/order-success" element={<OrderSuccessPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/profile" element={<ProfilePage />} /> */}
 
-            <GridLayout>
-              <FiltersSection activeFilters={activeFilters} onFilterChange={handleFilterChange} />
-              <MealGrid filters={activeFilters} searchQuery={searchQuery} onAddToCart={addToCart} />
-            </GridLayout>
+<MainContent>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Container>
+                    <RestaurantShowcase />
+                    <GridLayout>
+                      <FiltersSection activeFilters={activeFilters} onFilterChange={handleFilterChange} />
+                      <MealGrid filters={activeFilters} searchQuery={searchQuery} onAddToCart={addToCart} />
+                    </GridLayout>
+                    <CallToAction />
+                  </Container>
+                }
+              />
+              <Route path="/restaurant/:id" element={<RestaurantPage onAddToCart={addToCart} />} />
+              <Route
+                path="/cart"
+                element={
+                  <CartPage
+                    cartItems={cartItems}
+                    onUpdateQuantity={updateQuantity}
+                    onRemoveItem={removeFromCart}
+                    onAddToCart={addToCart}
+                  />
+                }
+              />
+              <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} onOrderComplete={clearCart} />} />
+              <Route path="/order-success" element={<OrderSuccessPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
 
-            <CallToAction />
-          </Container>
+            {/* Restaurant Dashboard Routes (No Navbar, No Footer) */}
+            <Route path="/restaurant" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+            <Route path="/restaurant/menu" element={<DashboardLayout><DishList /><MenuUpload /></DashboardLayout>} />
+            <Route path="/restaurant/orders" element={<DashboardLayout><OrdersManagement /></DashboardLayout>} />
+            <Route path="/restaurant/settings" element={<DashboardLayout><div>Restaurant Settings</div></DashboardLayout>} />
+          </Routes>
         </MainContent>
-
-        <Footer />
+        {!isRestaurantRoute && <Footer />}
       </PageContainer>
     </ThemeProvider>
   )
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  )
+}
 
+export default App

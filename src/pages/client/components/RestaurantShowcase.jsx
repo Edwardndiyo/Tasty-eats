@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import styled from "styled-components"
+import { Link } from "react-router-dom"
+// import { Overlay } from "./Overlay" // Import Overlay component
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 
 const Section = styled.section`
@@ -39,7 +41,7 @@ const NavButton = styled.button`
   height: 2.5rem;
   border-radius: 0.375rem;
   border: 1px solid ${(props) => props.theme.colors.border};
-  background-color: ${(props) => props.theme.colors.background};
+  background-color: ${(props) => props.theme.colors.foreground};
   cursor: pointer;
   
   &:hover {
@@ -163,8 +165,26 @@ const Overlay = styled.div`
   }
 `
 
-const ViewMenuButton = styled.button`
-  display: flex;
+// const ViewMenuButton = styled.button`
+//   display: flex;
+//   align-items: center;
+//   gap: 0.5rem;
+//   padding: 0.5rem 1rem;
+//   border-radius: 0.375rem;
+//   background-color: ${(props) => props.theme.colors.primary};
+//   color: ${(props) => props.theme.colors.primaryForeground};
+//   font-size: 0.875rem;
+//   font-weight: 500;
+//   border: none;
+//   cursor: pointer;
+  
+//   &:hover {
+//     background-color: ${(props) => props.theme.colors.primaryDark};
+//   }
+// `
+
+const ViewMenuButton = styled(Link)`
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
@@ -173,22 +193,21 @@ const ViewMenuButton = styled.button`
   color: ${(props) => props.theme.colors.primaryForeground};
   font-size: 0.875rem;
   font-weight: 500;
-  border: none;
-  cursor: pointer;
+  text-decoration: none;
   
   &:hover {
     background-color: ${(props) => props.theme.colors.primaryDark};
   }
 `
 
-export default function RestaurantShowcase() {
+export default function RestaurantShowcase({restaurant}) {
   const [currentIndex, setCurrentIndex] = useState(0)
-
   const restaurants = [
     {
       id: 1,
       name: "Flame Grill House",
-      logo: "/placeholder.svg?height=80&width=80",
+      logo: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=80&h=80&fit=crop",
+      image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200&h=800&fit=crop",
       description: "Premium steaks and gourmet burgers in a cozy atmosphere.",
       categories: ["Steakhouse", "Burgers", "American"],
       rating: 4.8,
@@ -196,7 +215,8 @@ export default function RestaurantShowcase() {
     {
       id: 2,
       name: "Spice Garden",
-      logo: "/placeholder.svg?height=80&width=80",
+      logo: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=80&h=80&fit=crop",
+      image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1200&h=800&fit=crop",
       description: "Authentic Indian cuisine with a modern twist.",
       categories: ["Indian", "Vegetarian", "Curry"],
       rating: 4.7,
@@ -204,7 +224,8 @@ export default function RestaurantShowcase() {
     {
       id: 3,
       name: "Bella Italia",
-      logo: "/placeholder.svg?height=80&width=80",
+      logo: "https://images.unsplash.com/photo-1579684947550-22e945225d9a?w=80&h=80&fit=crop",
+      image: "https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?w=1200&h=800&fit=crop",
       description: "Traditional Italian dishes made with imported ingredients.",
       categories: ["Italian", "Pizza", "Pasta"],
       rating: 4.6,
@@ -212,13 +233,15 @@ export default function RestaurantShowcase() {
     {
       id: 4,
       name: "Sushi Master",
-      logo: "/placeholder.svg?height=80&width=80",
+      logo: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=80&h=80&fit=crop",
+      image: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=1200&h=800&fit=crop",
       description: "Fresh and creative Japanese cuisine by master chefs.",
       categories: ["Japanese", "Sushi", "Seafood"],
       rating: 4.9,
     },
   ]
-
+  
+  
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % restaurants.length)
   }
@@ -243,10 +266,10 @@ export default function RestaurantShowcase() {
           <Title>Featured Restaurants</Title>
           <ButtonGroup>
             <NavButton onClick={prevSlide} aria-label="Previous restaurant">
-              <ChevronLeft size={16} />
+              <span><ChevronLeft size={16} /></span>
             </NavButton>
             <NavButton onClick={nextSlide} aria-label="Next restaurant">
-              <ChevronRight size={16} />
+              <span><ChevronRight size={16} /></span>
             </NavButton>
           </ButtonGroup>
         </Header>
@@ -281,11 +304,18 @@ export default function RestaurantShowcase() {
                 </CategoryContainer>
 
                 <Overlay>
+        <ViewMenuButton to={`/restaurant/${restaurant.id}`}>
+          View Menu
+          <ExternalLink size={16} />
+        </ViewMenuButton>
+      </Overlay>
+                {/* <Overlay>
+
                   <ViewMenuButton>
                     View Menu
                     <ExternalLink size={16} />
                   </ViewMenuButton>
-                </Overlay>
+                </Overlay> */}
               </CardContent>
             </RestaurantCard>
           ))}
@@ -294,4 +324,5 @@ export default function RestaurantShowcase() {
     </Section>
   )
 }
+
 
