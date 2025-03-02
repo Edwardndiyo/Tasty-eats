@@ -304,6 +304,7 @@ import { useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import styled from "styled-components"
 import { Star, ShoppingBag, Plus, Minus, Check } from "lucide-react"
+import Navbar from "./Navbar"
 
 const Container = styled.div`
   max-width: 1200px;
@@ -689,6 +690,7 @@ function RestaurantPage({ onAddToCart }) {
 
   return (
     <Container>
+      <Navbar/>
       <HeroSection>
         <HeroImage src={restaurant.image} alt={restaurant.name} />
         <HeroOverlay>
