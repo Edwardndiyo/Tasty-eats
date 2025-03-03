@@ -1,299 +1,13 @@
-// "use client"
-
-// import { useState } from "react"
-// import { Link, useNavigate } from "react-router-dom"
-// import styled from "styled-components"
-// import { Eye, EyeOff, Mail, Lock, User } from "lucide-react"
-
-// const Container = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100vh;
-// `
-
-// const AuthCard = styled.div`
-//   padding: 40px;
-//   border-radius: 8px;
-//   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-//   width: 400px;
-// `
-
-// const Title = styled.h2`
-//   text-align: center;
-//   margin-bottom: 20px;
-// `
-
-// const ErrorMessage = styled.div`
-//   color: red;
-//   margin-bottom: 10px;
-//   text-align: center;
-// `
-
-// const Form = styled.form`
-//   display: flex;
-//   flex-direction: column;
-// `
-
-// const FormGroup = styled.div`
-//   margin-bottom: 20px;
-// `
-
-// const Label = styled.label`
-//   display: block;
-//   margin-bottom: 5px;
-// `
-
-// const InputWrapper = styled.div`
-//   position: relative;
-// `
-
-// const InputIcon = styled.div`
-//   position: absolute;
-//   top: 50%;
-//   left: 10px;
-//   transform: translateY(-50%);
-// `
-
-// const Input = styled.input`
-//   padding: 10px;
-//   border: 1px solid #ccc;
-//   border-radius: 4px;
-//   width: 100%;
-// `
-
-// const PasswordToggle = styled.button`
-//   position: absolute;
-//   top: 50%;
-//   right: 10px;
-//   transform: translateY(-50%);
-//   background: none;
-//   border: none;
-//   cursor: pointer;
-// `
-
-// const SubmitButton = styled.button`
-//   padding: 10px;
-//   background-color: #007bff;
-//   color: white;
-//   border: none;
-//   border-radius: 4px;
-//   cursor: pointer;
-//   &:disabled {
-//     opacity: 0.5;
-//     cursor: not-allowed;
-//   }
-// `
-
-// const Divider = styled.div`
-//   margin: 20px 0;
-//   text-align: center;
-// `
-
-// const DividerText = styled.span`
-//   padding: 0 10px;
-//   background-color: white;
-// `
-
-// const SocialButton = styled.button`
-//   padding: 10px;
-//   background-color: #f0f0f0;
-//   border: none;
-//   border-radius: 4px;
-//   cursor: pointer;
-//   width: 100%;
-//   margin-bottom: 10px;
-// `
-
-// const BottomText = styled.div`
-//   text-align: center;
-//   margin-top: 20px;
-// `
-
-// export default function SignupPage() {
-//   const navigate = useNavigate()
-//   const [showPassword, setShowPassword] = useState(false)
-//   const [loading, setLoading] = useState(false)
-//   const [error, setError] = useState("")
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     email: "",
-//     password: "",
-//     confirmPassword: "",
-//   })
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault()
-//     setLoading(true)
-//     setError("")
-
-//     if (formData.password !== formData.confirmPassword) {
-//       setError("Passwords do not match")
-//       setLoading(false)
-//       return
-//     }
-
-//     try {
-//       // Implement your signup logic here
-//       await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate API call
-//       navigate("/")
-//     } catch (err) {
-//       setError("Something went wrong. Please try again.")
-//     } finally {
-//       setLoading(false)
-//     }
-//   }
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target
-//     setFormData((prev) => ({
-//       ...prev,
-//       [name]: value,
-//     }))
-//   }
-
-//   return (
-//     <Container>
-//       <AuthCard>
-//         <Title>Create an account</Title>
-
-//         {error && <ErrorMessage>{error}</ErrorMessage>}
-
-//         <Form onSubmit={handleSubmit}>
-//           <FormGroup>
-//             <Label htmlFor="name">Full Name</Label>
-//             <InputWrapper>
-//               <InputIcon>
-//                 <User size={16} />
-//               </InputIcon>
-//               <Input
-//                 type="text"
-//                 id="name"
-//                 name="name"
-//                 value={formData.name}
-//                 onChange={handleChange}
-//                 placeholder="Enter your full name"
-//                 required
-//               />
-//             </InputWrapper>
-//           </FormGroup>
-
-//           <FormGroup>
-//             <Label htmlFor="email">Email</Label>
-//             <InputWrapper>
-//               <InputIcon>
-//                 <Mail size={16} />
-//               </InputIcon>
-//               <Input
-//                 type="email"
-//                 id="email"
-//                 name="email"
-//                 value={formData.email}
-//                 onChange={handleChange}
-//                 placeholder="Enter your email"
-//                 required
-//               />
-//             </InputWrapper>
-//           </FormGroup>
-
-//           <FormGroup>
-//             <Label htmlFor="password">Password</Label>
-//             <InputWrapper>
-//               <InputIcon>
-//                 <Lock size={16} />
-//               </InputIcon>
-//               <Input
-//                 type={showPassword ? "text" : "password"}
-//                 id="password"
-//                 name="password"
-//                 value={formData.password}
-//                 onChange={handleChange}
-//                 placeholder="Create a password"
-//                 required
-//               />
-//               <PasswordToggle
-//                 type="button"
-//                 onClick={() => setShowPassword(!showPassword)}
-//                 aria-label={showPassword ? "Hide password" : "Show password"}
-//               >
-//                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-//               </PasswordToggle>
-//             </InputWrapper>
-//           </FormGroup>
-
-//           <FormGroup>
-//             <Label htmlFor="confirmPassword">Confirm Password</Label>
-//             <InputWrapper>
-//               <InputIcon>
-//                 <Lock size={16} />
-//               </InputIcon>
-//               <Input
-//                 type={showPassword ? "text" : "password"}
-//                 id="confirmPassword"
-//                 name="confirmPassword"
-//                 value={formData.confirmPassword}
-//                 onChange={handleChange}
-//                 placeholder="Confirm your password"
-//                 required
-//               />
-//             </InputWrapper>
-//           </FormGroup>
-
-//           <SubmitButton type="submit" disabled={loading}>
-//             {loading ? "Creating account..." : "Create account"}
-//           </SubmitButton>
-//         </Form>
-
-//         <Divider>
-//           <DividerText>or</DividerText>
-//         </Divider>
-
-//         <SocialButton type="button">
-//           <svg width="16" height="16" viewBox="0 0 48 48">
-//             <path
-//               fill="#FFC107"
-//               d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"
-//             />
-//             <path
-//               fill="#FF3D00"
-//               d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"
-//             />
-//             <path
-//               fill="#4CAF50"
-//               d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"
-//             />
-//             <path
-//               fill="#1976D2"
-//               d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"
-//             />
-//           </svg>
-//           Continue with Google
-//         </SocialButton>
-
-//         <BottomText>
-//           Already have an account? <Link to="/login">Sign in</Link>
-//         </BottomText>
-//       </AuthCard>
-//     </Container>
-//   )
-// }
-
-
-
-
-
-
-
-
-
-
-
 "use client"
 
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { Eye, EyeOff, Mail, Lock, User } from "lucide-react"
+// import apiClient from "apiClient";
+import apiClient from "../../../../utils/apiClient";
+
+
 
 const Container = styled.div`
   min-height: calc(100vh - 4rem);
@@ -511,27 +225,43 @@ export default function SignupPage() {
     confirmPassword: "",
   })
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError("");
+  
+  //   try {
+  //     const { data } = await apiClient.post("/auth/signup", formData);
+      
+  //     console.log("Signup successful:", data);
+  //     navigate("/login"); // Redirect to login page
+  
+  //   } catch (err) {
+  //     setError(err.response?.data?.message || "Something went wrong");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match")
-      setLoading(false)
-      return
-    }
-
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+  
     try {
-      // Implement your signup logic here
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      navigate("/")
+      const { data } = await apiClient.post("/auth/signup", formData);
+      
+      console.log("Signup successful:", data);
+      navigate("/login"); // Redirect to login page
+  
     } catch (err) {
-      setError("Something went wrong. Please try again.")
+      setError(err.response?.data?.error || "Something went wrong");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+  
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target

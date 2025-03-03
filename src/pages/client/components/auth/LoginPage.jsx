@@ -4,6 +4,10 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { Eye, EyeOff, Mail, Lock } from "lucide-react"
+// import apiClient from "utils/apiClient";
+import apiClient from "../../../../utils/apiClient";
+
+
 
 const Container = styled.div`
   min-height: calc(100vh - 4rem);
@@ -189,21 +193,44 @@ export default function LoginPage() {
     password: "",
   })
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError("");
+  
+  //   try {
+  //     const { data } = await apiClient.post("/auth/login", formData);
+  //     console.log("User logged in:", data);
+  //     navigate("/");
+  //   } catch (err) {
+  //     setError(err.response?.data?.message || "Something went wrong");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+  
     try {
-      // Implement your login logic here
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate API call
-      navigate("/")
+      const { data } = await apiClient.post("auth/login", formData);
+  
+      // Save token and role in local storage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+  
+      console.log("User logged in:", data);
+      navigate("/");  // Redirect to homepage
+  
     } catch (err) {
-      setError("Invalid email or password")
+      setError(err.response?.data?.error || "Something went wrong");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target
