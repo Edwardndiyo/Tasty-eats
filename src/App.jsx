@@ -699,6 +699,7 @@ import CategoryManagement from "./pages/admin/pages/CategoryManagement"
 import FoodTypeManagement from "./pages/admin/pages/FoodTypeManagement"
 import Reports from "./pages/admin/pages/Reports"
 import SiteSettings from "./pages/admin/pages/SiteSettings"
+import Notifications from "./pages/admin/pages/Notifications"
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -746,7 +747,7 @@ const RestaurantDashboardWrapper = () => {
 
 function AppContent() {
   const location = useLocation()
-  const isRestaurantRoute = location.pathname.startsWith("/restaurant-dashboard")
+  const isRestaurantRoute = location.pathname.startsWith("/restaurant")
   const isAdminRoute = location.pathname.startsWith("/admin")
   const showNavbarFooter = !isRestaurantRoute && !isAdminRoute
 
@@ -857,6 +858,8 @@ function AppContent() {
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="users" element={<UserManagement />} />
+              {/* create notification component here */}
+              <Route path="notifications" element={<Notifications />} /> 
               <Route path="restaurants" element={<RestaurantManagement />} />
               <Route path="orders" element={<OrderManagement />} />
               <Route path="categories" element={<CategoryManagement />} />
@@ -882,4 +885,7 @@ function App() {
 }
 
 export default App
+
+
+
 
