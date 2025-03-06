@@ -170,16 +170,16 @@ export default function Footer() {
             <ColumnTitle>Cities</ColumnTitle>
             <LinkList>
               <LinkItem>
-                <Link href="#">New York</Link>
+                <Link href="#">Calabar</Link>
               </LinkItem>
               <LinkItem>
-                <Link href="#">Los Angeles</Link>
+                <Link href="#">Obudu</Link>
               </LinkItem>
               <LinkItem>
-                <Link href="#">Chicago</Link>
+                <Link href="#">Ikom</Link>
               </LinkItem>
               <LinkItem>
-                <Link href="#">San Francisco</Link>
+                <Link href="#">Uyo</Link>
               </LinkItem>
             </LinkList>
           </Column>

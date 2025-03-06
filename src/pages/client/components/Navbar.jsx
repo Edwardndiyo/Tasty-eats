@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Search, ShoppingCart } from "lucide-react"
 import { Link } from "react-router-dom"
@@ -296,13 +296,18 @@ function Navbar({ cartItems, onSearch, onFilterChange }) {
   const [isRestaurantDropdownOpen, setIsRestaurantDropdownOpen] = useState(false)
   const [isMealTypeDropdownOpen, setIsMealTypeDropdownOpen] = useState(false)
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  // const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
-  const user = {
-    name: "John Doe",
-    email: "john@example.com",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face",
-  }
+  useEffect(() => {
+    // Retrieve user authentication status from localStorage or global state
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setIsAuthenticated(true);
+      setUser(storedUser);
+    }
+  }, []);
 
   const handleLogout = () => {
     setIsAuthenticated(false)
@@ -337,7 +342,7 @@ function Navbar({ cartItems, onSearch, onFilterChange }) {
             <div style={{ position: "relative" }}>
               <UserButton onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}>
                 <UserAvatar>
-                  <UserImage src={user.avatar} alt={user.name} />
+                  <UserImage  />
                 </UserAvatar>
               </UserButton>
               <UserDropdown isOpen={isUserDropdownOpen}>
@@ -354,6 +359,27 @@ function Navbar({ cartItems, onSearch, onFilterChange }) {
           ) : (
             <LoginButton to="/login">Log in</LoginButton>
           )}
+          {/* {isAuthenticated ? (
+            <div style={{ position: "relative" }}>
+              <UserButton onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}>
+                <UserAvatar>
+                  <UserImage src={user.avatar} alt={user.name} />
+                </UserAvatar>
+              </UserButton>
+              <UserDropdown isOpen={isUserDropdownOpen}>
+                <UserDropdownItem to="/profile">
+                  <User size={16} />
+                  Profile
+                </UserDropdownItem>
+                <LogoutButton onClick={handleLogout}>
+                  <LogOut size={16} />
+                  Log out
+                </LogoutButton>
+              </UserDropdown>
+            </div>
+          ) : (
+            <LoginButton to="/login">Log in</LoginButton>
+          )} */}
 
           <MobileSearchButton onClick={onSearch}>
             <Search size={20} />

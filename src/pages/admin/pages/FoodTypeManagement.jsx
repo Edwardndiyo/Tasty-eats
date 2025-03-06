@@ -264,3 +264,9 @@ const FoodTypeManagement = () => {
 
 export default FoodTypeManagement
 
+
+
+
+
+
+
