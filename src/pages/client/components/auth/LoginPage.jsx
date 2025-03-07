@@ -193,21 +193,7 @@ export default function LoginPage() {
     password: "",
   })
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   setError("");
-  
-  //   try {
-  //     const { data } = await apiClient.post("/auth/login", formData);
-  //     console.log("User logged in:", data);
-  //     navigate("/");
-  //   } catch (err) {
-  //     setError(err.response?.data?.message || "Something went wrong");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -222,7 +208,21 @@ export default function LoginPage() {
       localStorage.setItem("role", data.role);
   
       console.log("User logged in:", data);
-      navigate("/");  // Redirect to homepage
+  
+      // Determine redirection based on role
+      let redirectPath = "/";
+      if (data.role === "restaurant") {
+        redirectPath = "/restaurant";
+      } else if (data.role === "admin") {
+        redirectPath = "/admin";
+      }
+  
+      navigate(redirectPath);
+      
+      // Force a page reload after navigation to update the navbar
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
   
     } catch (err) {
       setError(err.response?.data?.error || "Something went wrong");
@@ -230,6 +230,28 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+  
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError("");
+  
+  //   try {
+  //     const { data } = await apiClient.post("auth/login", formData);
+  
+  //     // Save token and role in local storage
+  //     localStorage.setItem("token", data.token);
+  //     localStorage.setItem("role", data.role);
+  
+  //     console.log("User logged in:", data);
+  //     navigate("/");  // Redirect to homepage
+  
+  //   } catch (err) {
+  //     setError(err.response?.data?.error || "Something went wrong");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   
 
   const handleChange = (e) => {

@@ -1,10 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import styled from "styled-components"
 import { Search, ShoppingCart } from "lucide-react"
 import { Link } from "react-router-dom"
 import { User, LogOut } from "lucide-react"
+import { jwtDecode } from "jwt-decode";
+import AuthContext from "../../../contexts/AuthContext";
+
 
 const Logo = styled(Link)`
   display: flex;
@@ -296,21 +299,14 @@ function Navbar({ cartItems, onSearch, onFilterChange }) {
   const [isRestaurantDropdownOpen, setIsRestaurantDropdownOpen] = useState(false)
   const [isMealTypeDropdownOpen, setIsMealTypeDropdownOpen] = useState(false)
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false)
-  // const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
-  useEffect(() => {
-    // Retrieve user authentication status from localStorage or global state
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      setIsAuthenticated(true);
-      setUser(storedUser);
-    }
-  }, []);
+
 
   const handleLogout = () => {
-    setIsAuthenticated(false)
+    logout()
     setIsUserDropdownOpen(false)
   }
 
@@ -339,47 +335,29 @@ function Navbar({ cartItems, onSearch, onFilterChange }) {
           </CartLink>
 
           {isAuthenticated ? (
-            <div style={{ position: "relative" }}>
-              <UserButton onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}>
-                <UserAvatar>
-                  <UserImage  />
-                </UserAvatar>
-              </UserButton>
-              <UserDropdown isOpen={isUserDropdownOpen}>
-                <UserDropdownItem to="/profile">
-                  <User size={16} />
-                  Profile
-                </UserDropdownItem>
-                <LogoutButton onClick={handleLogout}>
-                  <LogOut size={16} />
-                  Log out
-                </LogoutButton>
-              </UserDropdown>
-            </div>
-          ) : (
-            <LoginButton to="/login">Log in</LoginButton>
+        <div style={{ position: "relative" }}>
+          <UserButton onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}>
+            <UserAvatar>
+              <UserImage />
+            </UserAvatar>
+          </UserButton>
+          {isUserDropdownOpen && (
+            <UserDropdown isOpen={isUserDropdownOpen}>
+              <UserDropdownItem to="/profile">
+                <User size={16} />
+                Profile
+              </UserDropdownItem>
+              <LogoutButton onClick={handleLogout}>
+                <LogOut size={16} />
+                Log out
+              </LogoutButton>
+            </UserDropdown>
           )}
-          {/* {isAuthenticated ? (
-            <div style={{ position: "relative" }}>
-              <UserButton onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}>
-                <UserAvatar>
-                  <UserImage src={user.avatar} alt={user.name} />
-                </UserAvatar>
-              </UserButton>
-              <UserDropdown isOpen={isUserDropdownOpen}>
-                <UserDropdownItem to="/profile">
-                  <User size={16} />
-                  Profile
-                </UserDropdownItem>
-                <LogoutButton onClick={handleLogout}>
-                  <LogOut size={16} />
-                  Log out
-                </LogoutButton>
-              </UserDropdown>
-            </div>
-          ) : (
-            <LoginButton to="/login">Log in</LoginButton>
-          )} */}
+        </div>
+      ) : (
+        <LoginButton to="/login">Log in</LoginButton>
+      )}
+        
 
           <MobileSearchButton onClick={onSearch}>
             <Search size={20} />

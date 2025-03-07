@@ -22,7 +22,7 @@ export default function Layout({ children }) {
   const location = useLocation()
 
   // If the path is for admin or restaurant dashboard, don't render the layout
-  if (location.pathname.startsWith("/admin") || location.pathname.startsWith("/restaurant-dashboard")) {
+  if (location.pathname.startsWith("/admin") || location.pathname.startsWith("/restaurant")) {
     return children
   }
 

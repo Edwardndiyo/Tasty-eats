@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 from config import Config
 from models import init_db
 from routes.auth import auth_bp
+from routes.customer import customer_bp
 import utils.jwt_utils
 
 app = Flask(__name__)
@@ -31,6 +32,10 @@ init_db(app)
 
 # Register Blueprints
 app.register_blueprint(auth_bp, url_prefix='/auth')
+app.register_blueprint(customer_bp, url_prefix='/api')
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

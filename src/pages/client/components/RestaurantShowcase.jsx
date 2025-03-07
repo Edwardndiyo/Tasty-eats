@@ -309,13 +309,6 @@ export default function RestaurantShowcase({restaurant}) {
           <ExternalLink size={16} />
         </ViewMenuButton>
       </Overlay>
-                {/* <Overlay>
-
-                  <ViewMenuButton>
-                    View Menu
-                    <ExternalLink size={16} />
-                  </ViewMenuButton>
-                </Overlay> */}
               </CardContent>
             </RestaurantCard>
           ))}
