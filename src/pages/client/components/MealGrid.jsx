@@ -260,101 +260,94 @@ export default function MealGrid({ filters, searchQuery, onAddToCart }) {
   //       type: "Vegetarian",
   //       popularity: 4.6,
   //     },
-  //     {
-  //       id: 3,
-  //       name: "Chicken Tikka Masala",
-  //       price: 16.99,
-  //       description: "Tender chicken in a rich, spiced tomato-based sauce.",
-  //       image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&h=600&fit=crop",
-  //       restaurant: "Spice Garden",
-  //       cuisine: "Indian",
-  //       type: "Non-Vegetarian",
-  //       popularity: 4.7,
-  //     },
-  //     {
-  //       id: 4,
-  //       name: "Rainbow Sushi Roll",
-  //       price: 18.99,
-  //       description: "Colorful sushi roll with salmon, tuna, avocado, and cucumber.",
-  //       image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&h=600&fit=crop",
-  //       restaurant: "Sushi Master",
-  //       cuisine: "Japanese",
-  //       type: "Non-Vegetarian",
-  //       popularity: 4.9,
-  //     },
-  //     {
-  //       id: 5,
-  //       name: "Caesar Salad",
-  //       price: 10.99,
-  //       description: "Crisp romaine lettuce with Caesar dressing, croutons, and parmesan.",
-  //       image: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=800&h=600&fit=crop",
-  //       restaurant: "Flame Grill House",
-  //       cuisine: "American",
-  //       type: "Vegetarian",
-  //       popularity: 4.5,
-  //     },
-  //     {
-  //       id: 6,
-  //       name: "Paneer Tikka",
-  //       price: 13.99,
-  //       description: "Marinated and grilled Indian cottage cheese with vegetables.",
-  //       image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=800&h=600&fit=crop",
-  //       restaurant: "Spice Garden",
-  //       cuisine: "Indian",
-  //       type: "Vegetarian",
-  //       popularity: 4.6,
-  //     },
-  //     {
-  //       id: 7,
-  //       name: "Spaghetti Carbonara",
-  //       price: 15.99,
-  //       description: "Classic Italian pasta with creamy sauce, pancetta, and egg.",
-  //       image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=800&h=600&fit=crop",
-  //       restaurant: "Bella Italia",
-  //       cuisine: "Italian",
-  //       type: "Non-Vegetarian",
-  //       popularity: 4.7,
-  //     },
-  //     {
-  //       id: 8,
-  //       name: "Miso Soup",
-  //       price: 6.99,
-  //       description: "Traditional Japanese soup with tofu, seaweed, and green onions.",
-  //       image: "https://images.unsplash.com/photo-1582271929389-5e6eedba2a4f?w=800&h=600&fit=crop",
-  //       restaurant: "Sushi Master",
-  //       cuisine: "Japanese",
-  //       type: "Vegetarian",
-  //       popularity: 4.4,
-  //     },
+      // {
+      //   id: 3,
+      //   name: "Chicken Tikka Masala",
+      //   price: 16.99,
+      //   description: "Tender chicken in a rich, spiced tomato-based sauce.",
+      //   image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&h=600&fit=crop",
+      //   restaurant: "Spice Garden",
+      //   cuisine: "Indian",
+      //   type: "Non-Vegetarian",
+      //   popularity: 4.7,
+      // },
+      // {
+      //   id: 4,
+      //   name: "Rainbow Sushi Roll",
+      //   price: 18.99,
+      //   description: "Colorful sushi roll with salmon, tuna, avocado, and cucumber.",
+      //   image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&h=600&fit=crop",
+      //   restaurant: "Sushi Master",
+      //   cuisine: "Japanese",
+      //   type: "Non-Vegetarian",
+      //   popularity: 4.9,
+      // },
+      // {
+      //   id: 5,
+      //   name: "Caesar Salad",
+      //   price: 10.99,
+      //   description: "Crisp romaine lettuce with Caesar dressing, croutons, and parmesan.",
+      //   image: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=800&h=600&fit=crop",
+      //   restaurant: "Flame Grill House",
+      //   cuisine: "American",
+      //   type: "Vegetarian",
+      //   popularity: 4.5,
+      // },
+      // {
+      //   id: 6,
+      //   name: "Paneer Tikka",
+      //   price: 13.99,
+      //   description: "Marinated and grilled Indian cottage cheese with vegetables.",
+      //   image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=800&h=600&fit=crop",
+      //   restaurant: "Spice Garden",
+      //   cuisine: "Indian",
+      //   type: "Vegetarian",
+      //   popularity: 4.6,
+      // },
+      // {
+      //   id: 7,
+      //   name: "Spaghetti Carbonara",
+      //   price: 15.99,
+      //   description: "Classic Italian pasta with creamy sauce, pancetta, and egg.",
+      //   image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=800&h=600&fit=crop",
+      //   restaurant: "Bella Italia",
+      //   cuisine: "Italian",
+      //   type: "Non-Vegetarian",
+      //   popularity: 4.7,
+      // },
+      // {
+      //   id: 8,
+      //   name: "Miso Soup",
+      //   price: 6.99,
+      //   description: "Traditional Japanese soup with tofu, seaweed, and green onions.",
+      //   image: "https://images.unsplash.com/photo-1582271929389-5e6eedba2a4f?w=800&h=600&fit=crop",
+      //   restaurant: "Sushi Master",
+      //   cuisine: "Japanese",
+      //   type: "Vegetarian",
+      //   popularity: 4.4,
+      // },
   //   ]
     
   //   setMeals(sampleMeals)
   // }, [])
 
   useEffect(() => {
-    // const fetchMeals = async () => {
-    //   try {
-    //     const response = await apiClient.get("/api/meals"); // Replace with your actual API URL
-    //     if (!response.ok) {
-    //       throw new Error("Failed to fetch meals");
-    //     }
-    //     const data = await response.json();
-    //     setMeals(data);
-    //   } catch (error) {
-    //     console.error("Error fetching meals:", error);
-    //   }
-    // };
     const fetchMeals = async () => {
       try {
-        const response = await apiClient.get("/api/meals"); // Axios automatically throws on error responses
+        const response = await apiClient.get("/api/meals"); 
         console.log("Raw Axios Response:", response); // Debugging
-        setMeals(response.data); // Axios stores JSON data inside response.data
+    
+        // Ensure data is an array before setting state
+        if (!Array.isArray(response.data)) {
+          throw new Error("Unexpected response format: Expected an array");
+        }
+    
+        setMeals(response.data);
       } catch (error) {
         console.error("Error fetching meals:", error);
       }
     };
     
-  
     fetchMeals();
   }, []);
   

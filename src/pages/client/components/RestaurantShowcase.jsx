@@ -1,10 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 // import { Overlay } from "./Overlay" // Import Overlay component
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
+import apiClient from "../../../utils/apiClient";
+
 
 const Section = styled.section`
   padding: 3rem 0;
@@ -201,45 +203,96 @@ const ViewMenuButton = styled(Link)`
 `
 
 export default function RestaurantShowcase({restaurant}) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const restaurants = [
-    {
-      id: 1,
-      name: "Flame Grill House",
-      logo: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=80&h=80&fit=crop",
-      image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200&h=800&fit=crop",
-      description: "Premium steaks and gourmet burgers in a cozy atmosphere.",
-      categories: ["Steakhouse", "Burgers", "American"],
-      rating: 4.8,
-    },
-    {
-      id: 2,
-      name: "Spice Garden",
-      logo: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=80&h=80&fit=crop",
-      image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1200&h=800&fit=crop",
-      description: "Authentic Indian cuisine with a modern twist.",
-      categories: ["Indian", "Vegetarian", "Curry"],
-      rating: 4.7,
-    },
-    {
-      id: 3,
-      name: "Bella Italia",
-      logo: "https://images.unsplash.com/photo-1579684947550-22e945225d9a?w=80&h=80&fit=crop",
-      image: "https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?w=1200&h=800&fit=crop",
-      description: "Traditional Italian dishes made with imported ingredients.",
-      categories: ["Italian", "Pizza", "Pasta"],
-      rating: 4.6,
-    },
-    {
-      id: 4,
-      name: "Sushi Master",
-      logo: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=80&h=80&fit=crop",
-      image: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=1200&h=800&fit=crop",
-      description: "Fresh and creative Japanese cuisine by master chefs.",
-      categories: ["Japanese", "Sushi", "Seafood"],
-      rating: 4.9,
-    },
-  ]
+  // const [currentIndex, setCurrentIndex] = useState(0)
+  const [restaurants, setRestaurants] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // const restaurants = [
+  //   {
+  //     id: 1,
+  //     name: "Flame Grill House",
+  //     logo: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=80&h=80&fit=crop",
+  //     image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200&h=800&fit=crop",
+  //     description: "Premium steaks and gourmet burgers in a cozy atmosphere.",
+  //     categories: ["Steakhouse", "Burgers", "American"],
+  //     rating: 4.8,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Spice Garden",
+  //     logo: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=80&h=80&fit=crop",
+  //     image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1200&h=800&fit=crop",
+  //     description: "Authentic Indian cuisine with a modern twist.",
+  //     categories: ["Indian", "Vegetarian", "Curry"],
+  //     rating: 4.7,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Bella Italia",
+  //     logo: "https://images.unsplash.com/photo-1579684947550-22e945225d9a?w=80&h=80&fit=crop",
+  //     image: "https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?w=1200&h=800&fit=crop",
+  //     description: "Traditional Italian dishes made with imported ingredients.",
+  //     categories: ["Italian", "Pizza", "Pasta"],
+  //     rating: 4.6,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Sushi Master",
+  //     logo: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=80&h=80&fit=crop",
+  //     image: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=1200&h=800&fit=crop",
+  //     description: "Fresh and creative Japanese cuisine by master chefs.",
+  //     categories: ["Japanese", "Sushi", "Seafood"],
+  //     rating: 4.9,
+  //   },
+  // ]
+ 
+  
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await apiClient.get("api/restaurants"); 
+        console.log("Response:", response);
+  
+        const data = response.data; // Axios automatically parses JSON
+        console.log("Data:", data);
+  
+        setRestaurants(data);
+        console.log("Updated Restaurants State:", data);
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchRestaurants();
+  }, []);
+  
+
+
+  // useEffect(() => {
+  //   const fetchRestaurants = async () => {
+  //     try {
+  //       const response = await apiClient.get("api/restaurants"); 
+  //       console.log("Response:", response);
+  
+  //       const data = response.data; // Axios automatically parses JSON
+  //       console.log("Data:", data);
+  
+  //       setRestaurants(data.restaurants);
+  //     } catch (error) {
+  //       console.error("Fetch error:", error);
+  //       setError(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  
+  //   fetchRestaurants();
+  // }, []);
   
   
   const nextSlide = () => {
@@ -259,6 +312,9 @@ export default function RestaurantShowcase({restaurant}) {
     ]
   }
 
+  if (loading) return <p>Loading restaurants...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <Section>
       <Container>
@@ -274,7 +330,7 @@ export default function RestaurantShowcase({restaurant}) {
           </ButtonGroup>
         </Header>
 
-        <Grid>
+        {/* <Grid>
           {visibleRestaurants().map((restaurant) => (
             <RestaurantCard key={restaurant.id}>
               <CardContent>
@@ -312,7 +368,49 @@ export default function RestaurantShowcase({restaurant}) {
               </CardContent>
             </RestaurantCard>
           ))}
-        </Grid>
+        </Grid> */}
+        <Grid>
+  {visibleRestaurants()?.map((restaurant) => (
+    <RestaurantCard key={restaurant.id}>
+      <CardContent>
+        <RestaurantHeader>
+          <LogoContainer>
+            <Logo src={restaurant.logo || ""} alt={restaurant.name || "Restaurant"} />
+          </LogoContainer>
+          <RestaurantInfo>
+            <RestaurantName>{restaurant.name}</RestaurantName>
+            <RatingContainer>
+              {Array.from({ length: 5 }, (_, i) => (
+                <span key={i}>★</span>
+              ))}
+              <RatingValue>{restaurant.rating || "N/A"}</RatingValue>
+            </RatingContainer>
+          </RestaurantInfo>
+        </RestaurantHeader>
+
+        <Description>{restaurant.description || "No description available"}</Description>
+
+        <CategoryContainer>
+          {restaurant.categories?.length > 0 ? (
+            restaurant.categories.map((category, index) => (
+              <Category key={`${restaurant.id}-category-${index}`}>{category}</Category>
+            ))
+          ) : (
+            <Category>No categories</Category>
+          )}
+        </CategoryContainer>
+
+        <Overlay>
+          <ViewMenuButton to={`/restaurant/${restaurant.id}`}>
+            View Menu
+            <ExternalLink size={16} />
+          </ViewMenuButton>
+        </Overlay>
+      </CardContent>
+    </RestaurantCard>
+  ))}
+</Grid>
+
       </Container>
     </Section>
   )
