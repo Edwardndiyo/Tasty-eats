@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import styled from "styled-components"
 import { Search, Filter, Plus, Edit, Trash2, Eye } from "lucide-react"

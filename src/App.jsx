@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import styled, { ThemeProvider } from "styled-components"
 import { BrowserRouter as Router, Routes, Route, useLocation, Outlet } from "react-router-dom"

@@ -1,5 +1,3 @@
-"use client"
-
 import styled from "styled-components"
 import { Bell, ChevronDown, Search } from "lucide-react"
 import { useState } from "react"

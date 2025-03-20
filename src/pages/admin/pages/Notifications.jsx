@@ -1,18 +1,3 @@
-// import React from 'react'
-
-// function Notifications() {
-//   return (
-//     <div>Notifications</div>
-//   )
-// }
-
-// export default Notifications
-
-
-
-
-"use client"
-
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Bell, User, UtensilsCrossed, MessageSquare, AlertCircle, Check, Trash2, X } from "lucide-react"

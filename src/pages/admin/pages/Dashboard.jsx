@@ -1,5 +1,3 @@
-"use client"
-
 import styled from "styled-components"
 import { Users, UtensilsCrossed, ShoppingBag, DollarSign } from "lucide-react"
 import StatCard from "../components/dashboard/StatCard"

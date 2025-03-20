@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import styled from "styled-components"
 import { User, Image, Clock, CreditCard, Bell, Trash2, Save, Eye, EyeOff, Upload, X, AlertTriangle } from "lucide-react"

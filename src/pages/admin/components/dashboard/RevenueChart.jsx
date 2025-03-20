@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import styled from "styled-components"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"

@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import styled from "styled-components"
 import { MoreVertical, Plus } from "lucide-react"

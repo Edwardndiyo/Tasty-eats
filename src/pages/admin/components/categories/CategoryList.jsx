@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import styled from "styled-components"
 import { Plus, Edit, Trash2, MoreHorizontal, X } from 'lucide-react'

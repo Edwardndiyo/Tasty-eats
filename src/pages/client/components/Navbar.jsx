@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect, useContext } from "react"
 import styled from "styled-components"
 import { Search, ShoppingCart } from "lucide-react"

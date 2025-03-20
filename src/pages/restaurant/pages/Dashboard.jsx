@@ -1,5 +1,3 @@
-"use client"
-
 import styled from "styled-components"
 import { DollarSign, ShoppingBag, CheckCircle, Clock, Award, TrendingUp } from "lucide-react"
 import StatCard from "../components/dashboard/StatCard"

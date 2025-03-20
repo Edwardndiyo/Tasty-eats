@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import { PlusCircle, Star } from "lucide-react"
@@ -233,103 +231,6 @@ export default function MealGrid({ filters, searchQuery, onAddToCart }) {
   const [meals, setMeals] = useState([])
   const [sortBy, setSortBy] = useState("popularity")
   const [filteredMeals, setFilteredMeals] = useState([])
-
-  // Sample meal data
-  // useEffect(() => {
-  
-  //   const sampleMeals = [
-  //     {
-  //       id: 1,
-  //       name: "Classic Beef Burger",
-  //       price: 12.99,
-  //       description: "Juicy beef patty with fresh vegetables on a toasted bun.",
-  //       image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=600&fit=crop",
-  //       restaurant: "Flame Grill House",
-  //       cuisine: "American",
-  //       type: "Non-Vegetarian",
-  //       popularity: 4.8,
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Margherita Pizza",
-  //       price: 14.99,
-  //       description: "Traditional Italian pizza with tomato, mozzarella, and basil.",
-  //       image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?w=800&h=600&fit=crop",
-  //       restaurant: "Bella Italia",
-  //       cuisine: "Italian",
-  //       type: "Vegetarian",
-  //       popularity: 4.6,
-  //     },
-      // {
-      //   id: 3,
-      //   name: "Chicken Tikka Masala",
-      //   price: 16.99,
-      //   description: "Tender chicken in a rich, spiced tomato-based sauce.",
-      //   image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&h=600&fit=crop",
-      //   restaurant: "Spice Garden",
-      //   cuisine: "Indian",
-      //   type: "Non-Vegetarian",
-      //   popularity: 4.7,
-      // },
-      // {
-      //   id: 4,
-      //   name: "Rainbow Sushi Roll",
-      //   price: 18.99,
-      //   description: "Colorful sushi roll with salmon, tuna, avocado, and cucumber.",
-      //   image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&h=600&fit=crop",
-      //   restaurant: "Sushi Master",
-      //   cuisine: "Japanese",
-      //   type: "Non-Vegetarian",
-      //   popularity: 4.9,
-      // },
-      // {
-      //   id: 5,
-      //   name: "Caesar Salad",
-      //   price: 10.99,
-      //   description: "Crisp romaine lettuce with Caesar dressing, croutons, and parmesan.",
-      //   image: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=800&h=600&fit=crop",
-      //   restaurant: "Flame Grill House",
-      //   cuisine: "American",
-      //   type: "Vegetarian",
-      //   popularity: 4.5,
-      // },
-      // {
-      //   id: 6,
-      //   name: "Paneer Tikka",
-      //   price: 13.99,
-      //   description: "Marinated and grilled Indian cottage cheese with vegetables.",
-      //   image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=800&h=600&fit=crop",
-      //   restaurant: "Spice Garden",
-      //   cuisine: "Indian",
-      //   type: "Vegetarian",
-      //   popularity: 4.6,
-      // },
-      // {
-      //   id: 7,
-      //   name: "Spaghetti Carbonara",
-      //   price: 15.99,
-      //   description: "Classic Italian pasta with creamy sauce, pancetta, and egg.",
-      //   image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=800&h=600&fit=crop",
-      //   restaurant: "Bella Italia",
-      //   cuisine: "Italian",
-      //   type: "Non-Vegetarian",
-      //   popularity: 4.7,
-      // },
-      // {
-      //   id: 8,
-      //   name: "Miso Soup",
-      //   price: 6.99,
-      //   description: "Traditional Japanese soup with tofu, seaweed, and green onions.",
-      //   image: "https://images.unsplash.com/photo-1582271929389-5e6eedba2a4f?w=800&h=600&fit=crop",
-      //   restaurant: "Sushi Master",
-      //   cuisine: "Japanese",
-      //   type: "Vegetarian",
-      //   popularity: 4.4,
-      // },
-  //   ]
-    
-  //   setMeals(sampleMeals)
-  // }, [])
 
   useEffect(() => {
     const fetchMeals = async () => {
